@@ -1,1 +1,30 @@
-On
+name: .NET Core Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 * * * *' # Executa a cada hora
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore github4women/**/*.csproj
+
+    - name: Build the project
+      run: dotnet build github4women/**/*.csproj --no-restore
+
+    - name: Run tests
+      run: dotnet test github4women/**/*.csproj
