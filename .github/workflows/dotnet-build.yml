@@ -27,6 +27,6 @@ jobs:
       run: dotnet build **/*.csproj --no-restore
 
     - name: Run tests
-      run: dotnet run --project **/*.csproj
+      run: dotnet test --project **/*.csproj
 
 
